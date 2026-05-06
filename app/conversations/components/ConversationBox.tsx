@@ -9,7 +9,6 @@ import clsx from "clsx";
 import { FullConversationType } from "@/app/types";
 import useOtherUser from "@/app/hooks/useOtherUser";
 import Avatar from "@/app/components/Avatar";
-import AvatarGroup from "@/app/components/AvatarGroup";
 
 interface ConversationBoxProps {
     data: FullConversationType,
@@ -25,7 +24,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ( {
     const router = useRouter();
 
     const handleClick = useCallback(() => {
-        router.push(`/conversations/${data.id}`);
+        router.push(`conversations/${data.id}`);
     }, [data.id, router]);
 
     const lastMessage = useMemo(() => {
@@ -77,15 +76,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ( {
             `,
             selected ? 'bg-neutral-100' : 'bg-white'
             )}>
-            {
-                data.isGroup ? (
-                    <AvatarGroup users={data.users}/>
-                ) : (
-                    <Avatar user={otherUser}/>
-
-                )
-            }
-            
+            <Avatar user={otherUser}/>
             <div className="min-w-0 flex-1">
                 <div className="focus:outline-none">
                     <div className="
@@ -99,7 +90,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ( {
                                 font-medium
                                 text-gray-900
                         ">
-                            {data?.name || otherUser?.name}
+                            {data.name || otherUser.name}
                         </p>
                         {lastMessage?.createdAt && (
                             <p className="
